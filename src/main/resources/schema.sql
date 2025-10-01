@@ -1,4 +1,11 @@
-CREATE TABLE users (
+
+DROP TABLE IF EXISTS provider_services;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS  customers;
+DROP TABLE IF EXISTS providers;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -11,7 +18,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
     customer_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
     phone VARCHAR(20),
@@ -23,7 +30,7 @@ CREATE TABLE customers (
     CONSTRAINT fk_customer_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE providers (
+CREATE TABLE IF NOT EXISTS providers (
     provider_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
     phone VARCHAR(20),
@@ -37,7 +44,7 @@ CREATE TABLE providers (
     CONSTRAINT fk_provider_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE services (
+CREATE TABLE IF NOT EXISTS services (
     service_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(255) NOT NULL,
     description VARCHAR(1000),
@@ -48,7 +55,7 @@ CREATE TABLE services (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE provider_services (
+CREATE TABLE IF NOT EXISTS provider_services (
     provider_id BIGINT NOT NULL,
     service_id BIGINT NOT NULL,
     deleted BOOLEAN DEFAULT FALSE,
