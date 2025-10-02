@@ -80,7 +80,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.jwtSideCar</groupId>
+            <artifactId>JwtAuthSideCar</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/JwtAuthSideCar-0.0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
+
+
+
+    </dependencies>
 
 	<build>
 		<plugins>
