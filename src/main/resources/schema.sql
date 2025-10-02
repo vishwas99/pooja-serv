@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS  customers;
 DROP TABLE IF EXISTS providers;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS pooja;
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -63,3 +64,8 @@ CREATE TABLE IF NOT EXISTS provider_services (
     CONSTRAINT fk_provider FOREIGN KEY (provider_id) REFERENCES providers(provider_id),
     CONSTRAINT fk_service FOREIGN KEY (service_id) REFERENCES services(service_id)
 );
+
+CREATE TABLE IF NOT EXISTS pooja {
+    pooja_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    pooja_name VARCHAR(255) NOT NULL,
+}
