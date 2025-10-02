@@ -1,14 +1,13 @@
-# Use a base image with Java installed (e.g., OpenJDK 17)
-FROM openjdk:25-jdk-slim
-
-# Set the working directory inside the container
+# Stage 1: Build the application
+FROM openjdk:25-jdk
 WORKDIR /app
+COPY pom.xml .
+COPY src src
+RUN mvn clean package -DskipTests
 
-# Copy the executable JAR file from your build context to the container
-COPY target/PoojaServices-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the port your Spring Boot application listens on (default is 8080)
+# Stage 2: Create the final Docker image
+FROM openjdk:25-jdk-slim
+VOLUME /tmp
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
 EXPOSE 8080
-
-# Define the command to run your application when the container starts
-ENTRYPOINT ["java", "-jar", "app.jar"]
