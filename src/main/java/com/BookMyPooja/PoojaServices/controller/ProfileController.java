@@ -1,28 +1,24 @@
 package com.BookMyPooja.PoojaServices.controller;
 
 import com.BookMyPooja.PoojaServices.dto.ProfileDTO;
-import com.BookMyPooja.PoojaServices.entity.Users;
-import com.BookMyPooja.PoojaServices.repository.UserRepository;
 import com.BookMyPooja.PoojaServices.service.ProfileService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/profile")
+public class ProfileController {
 
-    UserRepository userRepository;
+    private final ProfileService profileService; // make it final
 
-    private UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
-    @GetMapping("/")
-    public List<Users> getUsers() {
-        return userRepository.findAll();
+    @GetMapping("/{userId}")
+    public ProfileDTO getProfile(@PathVariable Long userId) {
+        return profileService.getProfileByUserId(userId);
     }
 }
