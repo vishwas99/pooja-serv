@@ -26,9 +26,13 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Builder.Default
     private Boolean enabled = true;
+    @Builder.Default
     private Boolean accountNonExpired = true;
+    @Builder.Default
     private Boolean credentialsNonExpired = true;
+    @Builder.Default
     private Boolean accountNonLocked = true;
 
     private String roles;
