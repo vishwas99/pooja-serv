@@ -1,6 +1,6 @@
 package com.BookMyPooja.PoojaServices.controller;
 
-import com.BookMyPooja.PoojaServices.entity.Users;
+import com.BookMyPooja.PoojaServices.entity.User;
 import com.BookMyPooja.PoojaServices.repository.UserRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<Users> getUsers() {
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 }

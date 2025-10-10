@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "application_user")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +30,28 @@ public class Users {
     private Boolean accountNonExpired = true;
     private Boolean credentialsNonExpired = true;
     private Boolean accountNonLocked = true;
-
     private String roles;
 
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Customer> customers;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Provider> providers;
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserInfo userInfo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Customer customer;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Provider provider;
+
+    @PrePersist
+    @PreUpdate
+    protected void updateTimestamps() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+        updatedAt = LocalDateTime.now();
+    }
 }
