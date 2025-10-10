@@ -12,7 +12,7 @@ WORKDIR /app
 # Copy the built jar
 COPY --from=build /app/target/*.jar app.jar
 
-# Copy your CA cert into container
+# Copy CA cert into container
 COPY src/main/resources/certs/ca.pem /app/certs/ca.pem
 
 EXPOSE 8080
