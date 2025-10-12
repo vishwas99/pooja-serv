@@ -1,6 +1,6 @@
 package com.BookMyPooja.PoojaServices.entity;
 
-import com.BookMyPooja.PoojaServices.enums.UserStatus;
+import com.BookMyPooja.PoojaServices.enums.SlotStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,25 +8,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "slot")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
+public class Slot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
+    private Long slotId;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "provider_id", nullable = false)
+    private Provider provider;
 
-    @Enumerated(EnumType.STRING)
-    private UserStatus userStatus = UserStatus.ACTIVE;
+    private Date date;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
+    @Enumerated
+    private SlotStatus status = SlotStatus.AVAILABLE;
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    private Booking booking;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;

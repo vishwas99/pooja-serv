@@ -1,32 +1,36 @@
 package com.BookMyPooja.PoojaServices.entity;
 
-import com.BookMyPooja.PoojaServices.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "provider_availability")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
+public class ProviderAvailability {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "provider_id", nullable = false)
+    private Provider provider;
 
-    @Enumerated(EnumType.STRING)
-    private UserStatus userStatus = UserStatus.ACTIVE;
+    private Date date;
+
+    private int time_0; // stores the customerID which has booked slot in 00:00-01:00
+    private int time_1; // stores the customerID which has booked slot in 01:00-02:00 (can be same as above if customer booked 2 hour slot)
+    private int time_2; // ...
+    private int time_4; // ..
 
     @Column(updatable = false)
     private LocalDateTime createdAt;

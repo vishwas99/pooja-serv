@@ -1,6 +1,6 @@
 package com.BookMyPooja.PoojaServices.entity;
 
-import com.BookMyPooja.PoojaServices.enums.Status;
+import com.BookMyPooja.PoojaServices.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +28,7 @@ public class Provider {
     private String aboutMe;
 
     @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
+    private UserStatus userStatus = UserStatus.ACTIVE;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
