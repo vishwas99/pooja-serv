@@ -7,8 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "slot")
@@ -26,11 +27,17 @@ public class Slot {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    private Date date;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    @Column(nullable = false)
+    private LocalDate date;
 
-    @Enumerated
+    @Column(nullable = false)
+    private LocalTime startTime;
+
+    @Column(nullable = false)
+    private LocalTime endTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SlotStatus status = SlotStatus.AVAILABLE;
 
     @ManyToOne
