@@ -1,6 +1,7 @@
 package com.BookMyPooja.PoojaServices.entity;
 
 import com.BookMyPooja.PoojaServices.enums.SlotStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,7 @@ public class Slot {
     private Provider provider;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDate slotDate;
 
     @Column(nullable = false)
     private LocalTime startTime;
@@ -42,6 +43,7 @@ public class Slot {
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
+    @JsonIgnore
     private Booking booking;
 
     @Column(updatable = false)
